@@ -30,12 +30,10 @@ fn check_safety(report: &Vec<&i32>) -> bool {
 }
 
 pub fn part1(input: &Vec<Vec<i32>>) {
-    let mut safe_reports = 0;
-    for report in input.iter() {
-        if check_safety(&report.iter().map(|x| x).collect()) {
-            safe_reports += 1
-        }
-    }
+    let safe_reports: i32 = input
+        .iter()
+        .map(|c| check_safety(&c.iter().map(|x| x).collect()) as i32)
+        .sum();
 
     println!("Safe reports: {safe_reports}");
 }
@@ -51,13 +49,6 @@ fn test_report(report: &Vec<i32>) -> bool {
 }
 
 pub fn part2(input: &Vec<Vec<i32>>) {
-    let mut safe_reports: i32 = 0;
-
-    for report in input.iter() {
-        if test_report(report) {
-            safe_reports += 1;
-        }
-    }
-
+    let safe_reports: i32 = input.iter().map(|c| test_report(c) as i32).sum();
     println!("Safe reports: {safe_reports}");
 }

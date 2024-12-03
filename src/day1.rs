@@ -9,7 +9,7 @@ pub fn read_input(filepath: &str) -> (Vec<i32>, Vec<i32>) {
         .map(|line| {
             let numbers_as_strings: Vec<&str> = line.split_whitespace().collect();
             if numbers_as_strings.len() != 2 {
-                println!("Skipping invalid line '{line}'");
+                println!("Invalid line '{line}'");
                 return (0, 0);
             }
 

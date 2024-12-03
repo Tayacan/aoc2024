@@ -13,7 +13,7 @@ pub fn read_input(filepath: &str) -> Vec<Vec<i32>> {
         .collect()
 }
 
-fn check_safety(report: &Vec<&i32>) -> bool {
+fn check_safety(report: Vec<&i32>) -> bool {
     let sign = (report[1] - report[0]).signum();
     if sign == 0 {
         return false;
@@ -32,7 +32,7 @@ fn check_safety(report: &Vec<&i32>) -> bool {
 pub fn part1(input: &Vec<Vec<i32>>) {
     let safe_reports: i32 = input
         .iter()
-        .map(|c| check_safety(&c.iter().map(|x| x).collect()) as i32)
+        .map(|c| check_safety(c.iter().map(|x| x).collect()) as i32)
         .sum();
 
     println!("Safe reports: {safe_reports}");
@@ -41,7 +41,7 @@ pub fn part1(input: &Vec<Vec<i32>>) {
 fn test_report(report: &Vec<i32>) -> bool {
     for i in 0..report.len() {
         let report_mod: Vec<&i32> = report[..i].iter().chain(&report[i + 1..]).collect();
-        if check_safety(&report_mod) {
+        if check_safety(report_mod) {
             return true;
         }
     }

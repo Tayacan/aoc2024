@@ -27,11 +27,8 @@ pub fn part2(filepath: &str) {
     let contents = fs::read_to_string(filepath).expect("File read");
 
     let sequences = contents.split("do()");
-    let mut sum = 0;
-    for sequence in sequences {
-        let subseqs: Vec<&str> = sequence.split("don't()").collect();
-        let s = subseqs[0];
-        sum += eval_sequence(s);
-    }
+    let sum: i32 = sequences
+        .map(|seq| eval_sequence(seq.split("don't()").collect::<Vec<_>>()[0]))
+        .sum();
     println!("Sum: {sum}");
 }

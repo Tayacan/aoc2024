@@ -13,26 +13,28 @@ pub fn read_input(filepath: &str) -> Vec<Vec<i32>> {
         .collect()
 }
 
+fn check_safety(report: &Vec<&i32>) -> bool {
+    let sign = (report[1] - report[0]).signum();
+    if sign == 0 {
+        return false;
+    }
+
+    let mut safe = true;
+    for i in 0..report.len() - 1 {
+        let diff = report[i + 1] - report[i];
+        if diff.abs() > 3 || diff.abs() == 0 || diff.signum() != sign {
+            safe = false;
+        }
+    }
+    safe
+}
+
 pub fn part1(input: &Vec<Vec<i32>>) {
     let mut safe_reports = 0;
     for report in input.iter() {
-        let sign = (report[1] - report[0]).signum();
-        if sign == 0 {
-            continue;
+        if check_safety(&report.iter().map(|x| x).collect()) {
+            safe_reports += 1
         }
-
-        let mut safe = true;
-        for i in 0..report.len() - 1 {
-            let diff = report[i + 1] - report[i];
-            if diff.abs() > 3 || diff.abs() == 0 || diff.signum() != sign {
-                safe = false;
-            }
-        }
-        if !safe {
-            continue;
-        }
-
-        safe_reports += 1;
     }
 
     println!("Safe reports: {safe_reports}");
@@ -41,20 +43,7 @@ pub fn part1(input: &Vec<Vec<i32>>) {
 fn test_report(report: &Vec<i32>) -> bool {
     for i in 0..report.len() {
         let report_mod: Vec<&i32> = report[..i].iter().chain(&report[i + 1..]).collect();
-
-        let sign = (report_mod[1] - report_mod[0]).signum();
-        if sign == 0 {
-            continue;
-        }
-
-        let mut safe = true;
-        for i in 0..report_mod.len() - 1 {
-            let diff = report_mod[i + 1] - report_mod[i];
-            if diff.abs() > 3 || diff.abs() == 0 || diff.signum() != sign {
-                safe = false;
-            }
-        }
-        if safe {
+        if check_safety(&report_mod) {
             return true;
         }
     }

@@ -1,4 +1,4 @@
-use std::fs;
+use std::{fs, iter::zip};
 
 pub fn read_input(filepath: &str) -> (Vec<i32>, Vec<i32>) {
     let input = fs::read_to_string(filepath).expect("Should have been able to read the file");
@@ -33,11 +33,7 @@ pub fn part1(input: (Vec<i32>, Vec<i32>)) {
     v1.sort();
     v2.sort();
 
-    let mut total: i32 = 0;
-
-    for i in 0..v1.len() {
-        total += (v1[i] - v2[i]).abs();
-    }
+    let total: i32 = zip(v1, v2).map(|(a, b)| (a - b).abs()).sum();
 
     println!("Total: {total}");
 }

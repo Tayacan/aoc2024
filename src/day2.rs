@@ -19,14 +19,10 @@ fn check_safety(report: Vec<&i32>) -> bool {
         return false;
     }
 
-    let mut safe = true;
-    for i in 0..report.len() - 1 {
+    (0..report.len() - 1).all(|i| {
         let diff = report[i + 1] - report[i];
-        if diff.abs() > 3 || diff.abs() == 0 || diff.signum() != sign {
-            safe = false;
-        }
-    }
-    safe
+        diff.abs() <= 3 && diff.abs() > 0 && diff.signum() == sign
+    })
 }
 
 pub fn part1(input: &Vec<Vec<i32>>) {

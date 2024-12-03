@@ -5,24 +5,20 @@ pub fn read_input(filepath: &str) -> (Vec<i32>, Vec<i32>) {
 
     let lines = input.lines();
 
-    let mut v1: Vec<i32> = Vec::new();
-    let mut v2: Vec<i32> = Vec::new();
+    lines
+        .map(|line| {
+            let numbers_as_strings: Vec<&str> = line.split_whitespace().collect();
+            if numbers_as_strings.len() != 2 {
+                println!("Skipping invalid line '{line}'");
+                return (0, 0);
+            }
 
-    for line in lines {
-        let numbers_as_strings: Vec<&str> = line.split_whitespace().collect();
-        if numbers_as_strings.len() != 2 {
-            println!("Skipping invalid line '{line}'");
-            continue;
-        }
+            let n1 = numbers_as_strings[0].parse().expect("Not a number");
+            let n2 = numbers_as_strings[1].parse().expect("Not a number");
 
-        let n1: i32 = numbers_as_strings[0].trim().parse().expect("Not a number");
-        let n2: i32 = numbers_as_strings[1].trim().parse().expect("Not a number");
-
-        v1.push(n1);
-        v2.push(n2);
-    }
-
-    return (v1, v2);
+            (n1, n2)
+        })
+        .unzip()
 }
 
 pub fn part1(input: (Vec<i32>, Vec<i32>)) {

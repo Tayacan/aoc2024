@@ -2,6 +2,7 @@ mod day1;
 mod day2;
 mod day3;
 mod day4;
+mod day5;
 
 fn main() {
     println!("--- DAY 1 ---");
@@ -25,4 +26,9 @@ fn main() {
     let day4inp = day4::read_input("input/day4.txt");
     day4::part1(&day4inp);
     day4::part2(&day4inp);
+    println!();
+
+    println!("--- DAY 5 ---");
+    let mut day5inp = day5::read_input("input/day5.txt");
+    day5::part1(&mut day5inp);
 }

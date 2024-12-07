@@ -61,7 +61,7 @@ fn fix_line(line: &mut Vec<i32>, rules: &Vec<Rule>) {
             for dep in deps {
                 if line[i..].contains(&dep) {
                     line.retain(|x| *x != dep);
-                    line.insert(0, dep);
+                    line.insert(i, dep);
                 }
             }
         }

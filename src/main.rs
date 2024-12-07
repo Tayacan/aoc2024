@@ -31,5 +31,5 @@ fn main() {
 
     println!("--- DAY 5 ---");
     let mut day5inp = day5::read_input("input/day5.txt");
-    day5::part1(&mut day5inp);
+    day5::both_parts(&mut day5inp);
 }

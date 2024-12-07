@@ -68,7 +68,7 @@ fn fix_line(line: &mut Vec<i32>, rules: &Vec<Rule>) {
     }
 }
 
-pub fn part1(input: &mut PuzzleInput) {
+pub fn both_parts(input: &mut PuzzleInput) {
     let mut total_p1 = 0;
     let mut total_p2 = 0;
     for line in &mut input.pagelines {
